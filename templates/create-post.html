@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block head %}
+<title>Placeholder</title>
+{% endblock %} {% block body %}
+<form method="POST" action="#">
+  <div class="form-group">
+    <label for="image-url">Image URL</label>
+    <input
+      type="text"
+      class="form-control"
+      id="image-url"
+      aria-describedby="image"
+      placeholder="Enter an image url"
+      name="image-url"
+    />
+  </div>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      aria-describedby="image"
+      placeholder="Enter a title"
+      name="title"
+    />
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea
+      class="form-control"
+      id="image-description"
+      rows="3"
+      placeholder="Enter a description"
+    ></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

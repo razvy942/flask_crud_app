@@ -1,0 +1,40 @@
+.user-detail {
+  list-style: none;
+  font-weight: bold;
+  color: black;
+}
+
+.user {
+  margin: 10px;
+  box-shadow: 1px 1px 10px #d1d1d1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 10px #d1d1d1;
+  padding: 10px 0 10px 0;
+}
+
+.user:hover {
+  transition: ease-out 0.1s;
+  cursor: pointer;
+  box-shadow: 1px 1px 12px #b3b3b3;
+  transform: scale(1.05);
+}
+
+.user-description {
+  width: 80%;
+}
+
+.user-avatar img {
+  height: 150px;
+}
+
+@media (max-width: 900px) {
+  .user-avatar img {
+    height: 90px;
+  }
+
+  .user-detail {
+    font-size: 0.9rem;
+  }
+}
