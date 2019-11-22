@@ -1,0 +1,159 @@
+{% extends 'base.html' %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/profile.css')}}"
+/>
+<title>Placeholder</title>
+{% endblock %} {% block body %}
+<div class="user-info">
+  <div>
+    <h2>USER NAME</h2>
+    <a class="follower" href="followers.html"> <b>100 followers</b> </a
+    ><b
+      ><i class="fas fa-circle"></i
+      ><a class="follower" href="followers.html">100 following</a>
+    </b>
+  </div>
+  <div>
+    <img
+      class="avatar-image"
+      height="150"
+      src="./assets/images/profile-image-dummy.jpg"
+      alt="user-avatar"
+    />
+  </div>
+</div>
+<hr />
+
+<p class="posts-section">User posts</p>
+<div class="posts user-posts">
+  <div class="img-card-holder">
+    <a href="./post.html">
+      <img src="./assets/images/dummy-art-4.jpg" class="img-card" />
+    </a>
+    <div class="img-card-body">
+      <div class="img-title">
+        TITLE
+      </div>
+      <div class="img-description">
+        Image description
+      </div>
+      <div class="actions">
+        <a href="create-post.html">
+          <button class="btn btn-info btn-block">
+            <i class="fas fa-edit"></i> Edit
+          </button></a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="img-card-holder">
+    <a href="./post.html">
+      <img src="./assets/images/dummy-art-2.jpg" class="img-card" />
+    </a>
+    <div class="img-card-body">
+      <div class="actions">
+        <div class="img-title">
+          TITLE
+        </div>
+        <div class="img-description">
+          Image description
+        </div>
+        <a href="create-post.html">
+          <button class="btn btn-info btn-block">
+            <i class="fas fa-edit"></i> Edit
+          </button></a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="img-card-holder">
+    <a href="./post.html">
+      <img src="./assets/images/dummy-art-1.jpg" class="img-card" />
+    </a>
+    <div class="img-card-body">
+      <div class="actions">
+        <div class="img-title">
+          TITLE
+        </div>
+        <div class="img-description">
+          Image description
+        </div>
+        <a href="create-post.html">
+          <button class="btn btn-info btn-block">
+            <i class="fas fa-edit"></i> Edit
+          </button></a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="img-card-holder">
+    <a href="./post.html">
+      <img src="./assets/images/dummy-art-3.jpg" class="img-card" />
+    </a>
+    <div class="img-card-body">
+      <div class="img-title">
+        TITLE
+      </div>
+      <div class="img-description">
+        Image description
+      </div>
+      <div class="actions">
+        <a href="create-post.html">
+          <button class="btn btn-info btn-block">
+            <i class="fas fa-edit"></i> Edit
+          </button></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<p class="posts-section">Liked posts</p>
+<div class="posts liked-posts">
+  <div class="img-card-holder">
+    <a href="./post.html">
+      <img src="./assets/images/dummy-art-5.jpg" class="img-card" />
+    </a>
+    <div class="img-card-body">
+      <div class="img-title">
+        TITLE
+      </div>
+      <div class="img-description">
+        Image description
+      </div>
+      <div class="poster">Posted by: {User } {user image}</div>
+      <div class="actions">
+        <button class="btn btn-danger btn-block">
+          <i class="fas fa-heart-broken"></i> Dislike
+        </button>
+        <button class="btn btn-primary btn-block">
+          <i class="fas fa-plus"></i> Follow user
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="img-card-holder">
+    <a href="./post.html">
+      <img src="./assets/images/dummy-art-3.jpg" class="img-card" />
+    </a>
+    <div class="img-card-body">
+      <div class="img-title">
+        TITLE
+      </div>
+      <div class="img-description">
+        Image description
+      </div>
+      <div class="poster">Posted by: {User } {user image}</div>
+      <div class="actions">
+        <button class="btn btn-danger btn-block">
+          <i class="fas fa-heart-broken"></i> Dislike
+        </button>
+        <button class="btn btn-primary btn-block">
+          <i class="fas fa-plus"></i> Follow user
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

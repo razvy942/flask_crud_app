@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/followers.css')}}"
+></link>
+<title>Placeholder</title>
+{% endblock %} {% block body %}
+<h2>
+  List of followers/people you are following (depending on the data passed by
+  from the backend)
+</h2>
+<ul class="list-group">
+  <a href="profile.html">
+    <li class="user">
+      <div class="user-description">
+        <ul>
+          <li class="user-detail">USERNAME</li>
+          <li class="user-detail">{AMOUNT OF POSTS}</li>
+          <li class="user-detail">100 followers 100 following</li>
+        </ul>
+      </div>
+      <div class="user-avatar">
+        <img
+          class="avatar-image"
+          src="https://i.pinimg.com/564x/0e/2f/21/0e2f2170e65d2099788c8dbc9be94e0a.jpg"
+        />
+      </div>
+    </li>
+  </a>
+  <a href="profile.html">
+    <li class="user">
+      <div class="user-description">
+        <ul>
+          <li class="user-detail">USERNAME</li>
+          <li class="user-detail">{AMOUNT OF POSTS}</li>
+          <li class="user-detail">100 followers 100 following</li>
+        </ul>
+      </div>
+      <div class="user-avatar">
+        <img
+          class="avatar-image"
+          src="https://i.pinimg.com/564x/0e/2f/21/0e2f2170e65d2099788c8dbc9be94e0a.jpg"
+        />
+      </div>
+    </li>
+  </a>
+  <a href="profile.html">
+    <li class="user">
+      <div class="user-description">
+        <ul>
+          <li class="user-detail">USERNAME</li>
+          <li class="user-detail">{AMOUNT OF POSTS}</li>
+          <li class="user-detail">100 followers 100 following</li>
+        </ul>
+      </div>
+      <div class="user-avatar">
+        <img
+          class="avatar-image"
+          src="https://i.pinimg.com/564x/0e/2f/21/0e2f2170e65d2099788c8dbc9be94e0a.jpg"
+        />
+      </div>
+    </li>
+  </a>
+  <a href="profile.html">
+    <li class="user">
+      <div class="user-description">
+        <ul>
+          <li class="user-detail">USERNAME</li>
+          <li class="user-detail">{AMOUNT OF POSTS}</li>
+          <li class="user-detail">100 followers 100 following</li>
+        </ul>
+      </div>
+      <div class="user-avatar">
+        <img
+          class="avatar-image"
+          src="https://i.pinimg.com/564x/0e/2f/21/0e2f2170e65d2099788c8dbc9be94e0a.jpg"
+        />
+      </div>
+    </li>
+  </a>
+</ul>
+{% endblock %}
