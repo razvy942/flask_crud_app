@@ -4,6 +4,7 @@ from artshare import app
 from artshare.helpers import loggedout_required, login_required
 import os
 
+
 @app.route('/')
 def index():
     images = os.listdir(os.path.join(
