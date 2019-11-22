@@ -128,7 +128,10 @@
                 >Create new post</a
               >
               <a class="dropdown-item" href="">Profile</a>
-              <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>
+              <form class="dropdown-item" action="{{url_for('logout')}}" method="POST">
+                <button class="dropdown-item" type="submit">Logout</button>
+              </button>
+            </form>
             </div>
           </div>
           {% endif %}

@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from functools import wraps
 from datetime import datetime
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, LogoutForm
 
 app = Flask(__name__, static_folder='static')
 
