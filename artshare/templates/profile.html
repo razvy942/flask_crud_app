@@ -4,77 +4,94 @@
   href="{{url_for('static', filename='css/profile.css')}}"
 />
 <title>Placeholder</title>
-{% endblock %} {% block body %}
+{% endblock %} 
+{% block body %}
+{% if user_profile %}
 <div class="user-info">
-  <div>
-    <h2>USER NAME</h2>
-    <a class="follower" href="followers.html"> <b>100 followers</b> </a
-    ><b
-      ><i class="fas fa-circle"></i
-      ><a class="follower" href="followers.html">100 following</a>
-    </b>
+    <div>
+      <h2>{{ user_profile.username }}</h2>
+      <a class="follower" href="followers.html"> <b>0 followers</b> </a
+      ><b
+        ><i class="fas fa-circle"></i
+        ><a class="follower" href="followers.html">0 following</a>
+      </b>
+    </div>
+    <div>
+      <img
+        class="avatar-image"
+        height="150"
+        src="./assets/images/profile-image-dummy.jpg"
+        alt="user-avatar"
+      />
+    </div>
   </div>
-  <div>
-    <img
-      class="avatar-image"
-      height="150"
-      src="./assets/images/profile-image-dummy.jpg"
-      alt="user-avatar"
-    />
+  <hr />
+  
+  <p class="posts-section">User posts</p>
+  <div class="posts user-posts">
+    {% for post in user_profile.posts %}
+    <div class="img-card-holder">
+        <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
+          <img src="{{ post.post_image }}" class="img-card" />
+        </a>
+        <div class="img-card-body">
+          <div class="img-title">
+            {{ post.title }}
+          </div>
+          <div class="img-description">
+            {{ post.description }}
+          </div>
+          <div class="actions">
+            {% if  user_profile.id == user.id %}
+            <a href="create-post.html">
+              <button class="btn btn-info btn-block">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+            </a>
+            {% else %}
+            <div class="actions">
+              <button class="btn btn-danger btn-block">
+                <i class="fas fa-heart-broken"></i> Dislike
+              </button>
+              <button class="btn btn-primary btn-block">
+                <i class="fas fa-plus"></i> Follow user
+              </button>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  
   </div>
-</div>
-<hr />
-
-<p class="posts-section">User posts</p>
-<div class="posts user-posts">
-  {% for post in user.posts %}
-  <div class="img-card-holder">
-      <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
-        <img src="{{ post.post_image }}" class="img-card" />
+  <br />
+  <p class="posts-section">Liked posts</p>
+  <div class="posts liked-posts">
+    <div class="img-card-holder">
+      <a href="./post.html">
+        <img src="./assets/images/dummy-art-5.jpg" class="img-card" />
       </a>
       <div class="img-card-body">
         <div class="img-title">
-          {{ post.title }}
+          TITLE
         </div>
         <div class="img-description">
-          {{ post.description }}
+          Image description
         </div>
+        <div class="poster">Posted by: {User } {user image}</div>
         <div class="actions">
-          <a href="create-post.html">
-            <button class="btn btn-info btn-block">
-              <i class="fas fa-edit"></i> Edit
-            </button></a
-          >
+          <button class="btn btn-danger btn-block">
+            <i class="fas fa-heart-broken"></i> Dislike
+          </button>
+          <button class="btn btn-primary btn-block">
+            <i class="fas fa-plus"></i> Follow user
+          </button>
         </div>
-      </div>
-    </div>
-  {% endfor %}
-
-</div>
-<br />
-<p class="posts-section">Liked posts</p>
-<div class="posts liked-posts">
-  <div class="img-card-holder">
-    <a href="./post.html">
-      <img src="./assets/images/dummy-art-5.jpg" class="img-card" />
-    </a>
-    <div class="img-card-body">
-      <div class="img-title">
-        TITLE
-      </div>
-      <div class="img-description">
-        Image description
-      </div>
-      <div class="poster">Posted by: {User } {user image}</div>
-      <div class="actions">
-        <button class="btn btn-danger btn-block">
-          <i class="fas fa-heart-broken"></i> Dislike
-        </button>
-        <button class="btn btn-primary btn-block">
-          <i class="fas fa-plus"></i> Follow user
-        </button>
       </div>
     </div>
   </div>
-</div>
+{% else %}
+<h1>Profile does not exist</h1>
+{% endif %}
+
 {% endblock %}

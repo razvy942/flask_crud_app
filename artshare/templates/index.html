@@ -3,22 +3,22 @@
 {% endblock %} {% block body %}
 
 <div class="home">
-  {% for image in images %}
+  {% for post in posts %}
   <div class="img-card-holder">
-    <a href="./post.html">
+    <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
       <img
-        src="{{url_for('static', filename='assets/images/' + image)}}"
+        src="{{ post.post_image }}"
         class="img-card"
       />
     </a>
     <div class="img-card-body">
       <div class="img-title">
-        TITLE
+        {{ post.title }}
       </div>
       <div class="img-description">
-        Image description
+        {{ post.description }}
       </div>
-      <div class="poster">Posted by: User user image</div>
+      <div class="poster">Posted by: {{ post.author.username }} user image</div>
       <div class="actions">
         <button class="btn btn-danger btn-block">
           <i class="fas fa-heart"></i> Like

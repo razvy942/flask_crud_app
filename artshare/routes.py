@@ -10,7 +10,8 @@ import os
 def index():
     images = os.listdir(os.path.join(
         app.static_folder, 'assets', 'images'))
-    return render_template('index.html', images=images)
+    posts = Post.query.all()
+    return render_template('index.html', posts=posts)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -71,7 +72,8 @@ def create_post():
 
 @app.route('/profile/<username>')
 def profile_view(username):
-    return render_template('profile.html')
+    user = User.query.filter_by(username=username).first()
+    return render_template('profile.html', user_profile=user)
 
 
 @app.route('/profile/<username>/followers')
