@@ -27,86 +27,29 @@
 
 <p class="posts-section">User posts</p>
 <div class="posts user-posts">
+  {% for post in user.posts %}
   <div class="img-card-holder">
-    <a href="./post.html">
-      <img src="./assets/images/dummy-art-4.jpg" class="img-card" />
-    </a>
-    <div class="img-card-body">
-      <div class="img-title">
-        TITLE
-      </div>
-      <div class="img-description">
-        Image description
-      </div>
-      <div class="actions">
-        <a href="create-post.html">
-          <button class="btn btn-info btn-block">
-            <i class="fas fa-edit"></i> Edit
-          </button></a
-        >
-      </div>
-    </div>
-  </div>
-  <div class="img-card-holder">
-    <a href="./post.html">
-      <img src="./assets/images/dummy-art-2.jpg" class="img-card" />
-    </a>
-    <div class="img-card-body">
-      <div class="actions">
+      <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
+        <img src="{{ post.post_image }}" class="img-card" />
+      </a>
+      <div class="img-card-body">
         <div class="img-title">
-          TITLE
+          {{ post.title }}
         </div>
         <div class="img-description">
-          Image description
+          {{ post.description }}
         </div>
-        <a href="create-post.html">
-          <button class="btn btn-info btn-block">
-            <i class="fas fa-edit"></i> Edit
-          </button></a
-        >
+        <div class="actions">
+          <a href="create-post.html">
+            <button class="btn btn-info btn-block">
+              <i class="fas fa-edit"></i> Edit
+            </button></a
+          >
+        </div>
       </div>
     </div>
-  </div>
-  <div class="img-card-holder">
-    <a href="./post.html">
-      <img src="./assets/images/dummy-art-1.jpg" class="img-card" />
-    </a>
-    <div class="img-card-body">
-      <div class="actions">
-        <div class="img-title">
-          TITLE
-        </div>
-        <div class="img-description">
-          Image description
-        </div>
-        <a href="create-post.html">
-          <button class="btn btn-info btn-block">
-            <i class="fas fa-edit"></i> Edit
-          </button></a
-        >
-      </div>
-    </div>
-  </div>
-  <div class="img-card-holder">
-    <a href="./post.html">
-      <img src="./assets/images/dummy-art-3.jpg" class="img-card" />
-    </a>
-    <div class="img-card-body">
-      <div class="img-title">
-        TITLE
-      </div>
-      <div class="img-description">
-        Image description
-      </div>
-      <div class="actions">
-        <a href="create-post.html">
-          <button class="btn btn-info btn-block">
-            <i class="fas fa-edit"></i> Edit
-          </button></a
-        >
-      </div>
-    </div>
-  </div>
+  {% endfor %}
+
 </div>
 <br />
 <p class="posts-section">Liked posts</p>
@@ -114,28 +57,6 @@
   <div class="img-card-holder">
     <a href="./post.html">
       <img src="./assets/images/dummy-art-5.jpg" class="img-card" />
-    </a>
-    <div class="img-card-body">
-      <div class="img-title">
-        TITLE
-      </div>
-      <div class="img-description">
-        Image description
-      </div>
-      <div class="poster">Posted by: {User } {user image}</div>
-      <div class="actions">
-        <button class="btn btn-danger btn-block">
-          <i class="fas fa-heart-broken"></i> Dislike
-        </button>
-        <button class="btn btn-primary btn-block">
-          <i class="fas fa-plus"></i> Follow user
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="img-card-holder">
-    <a href="./post.html">
-      <img src="./assets/images/dummy-art-3.jpg" class="img-card" />
     </a>
     <div class="img-card-body">
       <div class="img-title">

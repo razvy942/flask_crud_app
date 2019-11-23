@@ -92,8 +92,8 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="{{ url_for('profile_view', username='Raz') }}"
-                  >username<span
+                  href="{{ url_for('profile_view', username=user.username) }}"
+                  >{{user.username}}<span
                     ><img
                       class="avatar-image"
                       height="30px"
@@ -118,7 +118,7 @@
                   height="30px"
                   src="{{url_for('static', filename='assets/images/profile-image-dummy.jpg')}}"
                   alt="user-avatar"/></span
-              >User name
+              >{{user.username}}
             </button>
             <div
               class="dropdown-menu dropdown-menu-right"
@@ -127,7 +127,7 @@
               <a class="dropdown-item" href="{{url_for('create_post')}}"
                 >Create new post</a
               >
-              <a class="dropdown-item" href="">Profile</a>
+              <a class="dropdown-item" href="{{url_for('profile_view', username=user.username)}}">Profile</a>
               <form class="dropdown-item" action="{{url_for('logout')}}" method="POST">
                 <button class="dropdown-item" type="submit">Logout</button>
               </button>
