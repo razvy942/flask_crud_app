@@ -91,10 +91,16 @@ def post_view(username, post_id):
     
     return render_template('post.html', post=None)
 
+@app.route('/search', methods=['POST'])
+def search():
+    username = request.form.get('search-users')
+    return redirect(url_for('search_users', username=username))
+
 @app.route('/search/<username>')
 def search_users(username):
     users = User.query.filter(User.username.like(f'{username}%')).all()
     return render_template('search.html', users=users)
+
 
 @app.route('/<path:path>')
 def not_found(path):

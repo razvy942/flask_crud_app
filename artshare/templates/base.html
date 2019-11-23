@@ -63,7 +63,7 @@
             </li>
             {% endif %}
             <li class="ml-sm-5">
-              <form class="input-group" method="GET">
+              <form class="input-group" method="POST" action="{{ url_for('search') }}">
                 <input
                   id="search-input"
                   type="search"
@@ -71,6 +71,7 @@
                   placeholder="Search users by username"
                   aria-label="Find Users"
                   aria-describedby="button-addon2"
+                  name="search-users"
                 />
                 <div class="input-group-append">
                   <button
@@ -153,6 +154,5 @@
     <footer>
       {% block footer %}{% endblock %}
     </footer>
-    <script src="{{url_for('static', filename='scripts/handle_search.js')}}"></script>
   </body>
 </html>
