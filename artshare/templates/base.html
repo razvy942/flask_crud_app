@@ -103,6 +103,12 @@
                       alt="user-avatar"/></span
                 ></a>
               </li>
+              <li class="nav-item">
+              <form class="nav-item" action="{{url_for('logout')}}" method="POST">
+                <button class="btn btn-danger" type="submit">Logout</button>
+              </button>
+            </form>
+            </li>
             </span>
           </ul>
           <div class="ml-auto dropdown d-none d-md-block">
@@ -130,8 +136,9 @@
                 >Create new post</a
               >
               <a class="dropdown-item" href="{{url_for('profile_view', username=user.username)}}">Profile</a>
+              <hr />
               <form class="dropdown-item" action="{{url_for('logout')}}" method="POST">
-                <button class="dropdown-item" type="submit">Logout</button>
+                <button class="btn btn-danger btn-block" type="submit">Logout</button>
               </button>
             </form>
             </div>
