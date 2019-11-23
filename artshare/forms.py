@@ -6,10 +6,10 @@ from artshare.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[
-                           DataRequired(), Length(min=5, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+                           DataRequired(), Length(min=5, max=20)], render_kw={'placeholder': 'Enter a username between 5 and 20 characters'})
+    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={'placeholder': 'Enter an email address'})
     password = PasswordField('Password', validators=[
-                             DataRequired(), Length(min=5)])
+                             DataRequired(), Length(min=5)], render_kw={'placeholder': 'Enter password of at least 5 characters'})
     confirm_password = PasswordField('Confirm Password', validators=[
                                      DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
@@ -26,12 +26,14 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={'placeholder': 'Enter your email address'})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={'placeholder': 'Enter your password'})
     submit = SubmitField('Sign In')
 
 class CreatePostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(), Length(max=150)])
-    description = TextAreaField('Description', validators=[DataRequired()])
-    image_path = StringField('Image Path', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired(), Length(max=150)], render_kw={'placeholder': 'Enter a title for your post'})
+    description = TextAreaField('Description', validators=[DataRequired()], render_kw={'placeholder': 'Enter a description for your post'})
+    image_path = StringField('Image Path', validators=[DataRequired()], render_kw={'placeholder': 'Enter a image url'})
     submit = SubmitField('Create Post')
+
+
