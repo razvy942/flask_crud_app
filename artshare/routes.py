@@ -76,6 +76,28 @@ def create_post():
         return redirect(url_for('index'))
     return render_template('create-post.html', form=form, create_post_active='active')
 
+@app.route('/edit-post/<post_id>', methods=['GET', 'POST'])
+@login_required
+def edit_post(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if not post:
+        flash('Post does not exist', 'danger')
+        return redirect(url_for('index'))
+    user = User.query.filter_by(id=session.get('user', 0)).first()
+    if not user == post.author:
+        flash('Can only edit posts made by you', 'danger')
+        return redirect(url_for('post_view', username=post.author.username, post_id=post.id))
+    form = CreatePostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.post_image = form.image_path.data
+        post.description = form.description.data
+        db.session.commit()
+        flash('Post updated succesfully', 'success')
+        return redirect(url_for('post_view', username=post.author.username, post_id=post.id))
+
+    return render_template('create-post.html', form=form, post=post)
+
 @app.route('/delete/<post_id>', methods=['POST'])
 @login_required
 def delete_post(post_id):
@@ -99,11 +121,6 @@ def profile_view(username):
     else:
         profile_view_active = ''
     return render_template('profile.html', user_profile=user, profile_view_active=profile_view_active)
-
-
-@app.route('/profile/<username>/followers')
-def profile_followers(username):
-    return render_template('followers.html')
 
 @app.route('/<username>/<post_id>')
 def post_view(username, post_id):
