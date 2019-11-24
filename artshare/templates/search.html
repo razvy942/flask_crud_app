@@ -1,33 +1,35 @@
 {% extends 'base.html' %}
+
 {% block head %}
-<title>Search results</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+  <title>Search results</title>
 {% endblock %}
+
 {% block body %}
-{% if users %}
-<div>
-  <ul class="list-group">
-    {% for user in users %}
-    <a href="{{ url_for('profile_view', username=user.username) }}">
-      <li class="user">
-        <div class="user-description">
-          <ul>
-            <li class="user-detail">{{ user.username }}</li>
-            <li class="user-detail">{{ user.posts|length }} posts</li>
-          </ul>
-        </div>
-        <div class="user-avatar">
-          <img
-            class="avatar-image"
-            src="{{ user.profile_image }}"
-          />
-        </div>
-      </li>
-    </a>
-    {% endfor %}
-  </ul>
-</div>
-{% else %}
-<h1>No users found</h1>
-{% endif %}
+  {% if users %}
+    <div>
+      <ul class="list-group">
+        {% for user in users %}
+          <a href="{{ url_for('profile_view', username=user.username) }}">
+            <li class="user">
+              <div class="user-description">
+                <ul>
+                  <li class="user-detail">{{ user.username }}</li>
+                  <li class="user-detail">{{ user.posts|length }} posts</li>
+                </ul>
+              </div>
+              <div class="user-avatar">
+                <img
+                  class="avatar-image"
+                  src="{{ user.profile_image }}"
+                />
+              </div>
+            </li>
+          </a>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <h1>No users found</h1>
+  {% endif %}
 {% endblock %}

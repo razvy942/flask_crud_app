@@ -1,104 +1,109 @@
-{% extends 'base.html' %} {% block head %}
-<link
-  rel="stylesheet"
-  href="{{url_for('static', filename='css/profile.css')}}"
-/>
-<title>Placeholder</title>
+{% extends 'base.html' %} 
+
+{% block head %}
+  <link
+    rel="stylesheet"
+    href="{{url_for('static', filename='css/profile.css')}}"
+  />
+  {% if user_profile %}
+    <title>{{ user_profile.username }}</title>
+  {% else %}
+    <title>User not found</title>
+  {% endif %}
 {% endblock %} 
+
 {% block body %}
-{% if user_profile %}
-<div class="user-info">
-    <div>
-      <h2>{{ user_profile.username }}</h2>
+  {% if user_profile %}
+    <div class="user-info">
+      <div>
+        <h2>{{ user_profile.username }}</h2>
+      </div>
+      <div>
+        <img
+          class="avatar-image"
+          height="150"
+          src="{{ user_profile.profile_image }}"
+          alt="user-avatar"
+        />
+      </div>
     </div>
-    <div>
-      <img
-        class="avatar-image"
-        height="150"
-        src="{{ user_profile.profile_image }}"
-        alt="user-avatar"
-      />
-    </div>
-  </div>
-  <hr />
-  
-  <p class="posts-section">User posts</p>
-  <div class="posts user-posts">
-    {% for post in user_profile.posts %}
-    <div class="img-card-holder">
-        <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
-          <img src="{{ post.post_image }}" class="img-card" />
-        </a>
-        <div class="img-card-body">
-          <div class="img-title">
-            {{ post.title }}
-          </div>
-          <div class="img-description">
-            {{ post.description }}
-          </div>
-          <div class="actions">
-            {% if  user_profile.id == user.id %}
-            <a href="{{ url_for('edit_post', post_id=post.id) }}">
-              <button class="btn btn-info btn-block">
-                <i class="fas fa-edit"></i> Edit
-              </button>
-            </a>
-            <form action="{{url_for('delete_post', post_id=post.id)}}" method="POST">
-              <button type="submit" class="btn btn-danger btn-block">
-                <i class="fas fa-trash"></i> Delete
-              </button>
-            </form>
-            {% else %}
-            <div class="actions">
-              <button class="btn btn-danger btn-block like" id="{{ post.id }}">
-                  {% if user and user.username in post.liked_by|map(attribute='username') %}
-                  <i class="fas fa-heart-broken"></i> 
-                  Dislike
-                  {% else %}
-                  <i class="fas fa-heart"></i> 
-                  Like
-                  {% endif %}
-              </button>
+    <hr />
+    
+    <p class="posts-section">User posts</p>
+    <div class="posts user-posts">
+      {% for post in user_profile.posts %}
+        <div class="img-card-holder">
+          <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
+            <img src="{{ post.post_image }}" class="img-card" />
+          </a>
+          <div class="img-card-body">
+            <div class="img-title">
+              {{ post.title }}
             </div>
+            <div class="img-description">
+              {{ post.description }}
+            </div>
+            <div class="actions">
+              {% if  user_profile.id == user.id %}
+                <a href="{{ url_for('edit_post', post_id=post.id) }}">
+                  <button class="btn btn-info btn-block">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                </a>
+                <form action="{{url_for('delete_post', post_id=post.id)}}" method="POST">
+                  <button type="submit" class="btn btn-danger btn-block">
+                    <i class="fas fa-trash"></i> Delete
+                  </button>
+                </form>
+              {% else %}
+                <div class="actions">
+                  <button class="btn btn-danger btn-block like" id="{{ post.id }}">
+                      {% if user and user.username in post.liked_by|map(attribute='username') %}
+                        <i class="fas fa-heart-broken"></i> 
+                        Dislike
+                      {% else %}
+                        <i class="fas fa-heart"></i> 
+                        Like
+                      {% endif %}
+                  </button>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <br />
+    <p class="posts-section">Liked posts</p>
+    <div class="posts liked-posts">
+      {% for post in user_profile.liked_posts %}
+        <div class="img-card-holder" id="img-card-{{post.id}}">
+          <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
+            <img src="{{ post.post_image }}" class="img-card" />
+          </a>
+          <div class="img-card-body">
+            <div class="img-title">
+              {{ post.title }}
+            </div>
+            <div class="img-description">
+              {{ post.description }}
+            </div>
+            <div class="poster">Posted by: 
+              <a href="{{url_for('profile_view', username=post.author.username)}}">{{ post.author.username }}</a>
+              <img class="avatar-image" height="30" alter="avatar-image" src="{{ post.author.profile_image }}"/>
+            </div>
+            {% if user_profile.id == user.id %}
+              <div class="actions">
+                <button class="btn btn-danger btn-block profile-view-like" id="{{ post.id }}">
+                  <i class="fas fa-heart-broken"></i> Dislike
+                </button>
+              </div>
             {% endif %}
           </div>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-  <br />
-  <p class="posts-section">Liked posts</p>
-  <div class="posts liked-posts">
-    {% for post in user_profile.liked_posts %}
-    <div class="img-card-holder" id="img-card-{{post.id}}">
-        <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
-          <img src="{{ post.post_image }}" class="img-card" />
-        </a>
-        <div class="img-card-body">
-          <div class="img-title">
-            {{ post.title }}
-          </div>
-          <div class="img-description">
-            {{ post.description }}
-          </div>
-          <div class="poster">Posted by: 
-            <a href="{{url_for('profile_view', username=post.author.username)}}">{{ post.author.username }}</a>
-            <img class="avatar-image" height="30" alter="avatar-image" src="{{ post.author.profile_image }}"/>
-          </div>
-          {% if user_profile.id == user.id %}
-          <div class="actions">
-            <button class="btn btn-danger btn-block profile-view-like" id="{{ post.id }}">
-              <i class="fas fa-heart-broken"></i> Dislike
-            </button>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
-   
-  </div>
-{% else %}
-<h1>Profile does not exist</h1>
-{% endif %}
-
+      {% endfor %} 
+    </div>
+  {% else %}
+    <h1>Profile does not exist</h1>
+  {% endif %}
 {% endblock %}

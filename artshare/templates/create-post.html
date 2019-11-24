@@ -1,85 +1,92 @@
 {% extends 'base.html' %} 
+
 {% block head %}
-<title>Placeholder</title>
+  {% if post %}
+    <title>Update {{ post.title }}</title>
+  {% else %}
+    <title>Create Post</title>
+  {% endif %}
 {% endblock %} 
+
 {% block body %}
-<form method="POST" action="">
-  {{ form.hidden_tag() }}
-  <fieldset class="form-group">
-    {% if post %}
-    <legend class="border-bottom mb-4">Edit Post</legend>
-    {% else %}
-    <legend class="border-bottom mb-4">Create New Post</legend>
-    {% endif %}
-    <div class="form-group">
-      {{ form.title.label(class="form-control-label") }}
-      {% if form.title.errors %}
-        {% if post %}
-        {{ form.title(class="form-control form-control-lg is-invalid", value=post.title) }}
-        {% else %}
-        {{ form.title(class="form-control form-control-lg is-invalid") }}
-        {% endif %}
-        <div class="invalid-feedback">
-          {% for error in form.title.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
-        </div>
-      {% else %}
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
       {% if post %}
-      {{ form.title(class="form-control form-control-lg", value=post.title) }}
+        <legend class="border-bottom mb-4">Edit Post</legend>
       {% else %}
-      {{ form.title(class="form-control form-control-lg") }}
+        <legend class="border-bottom mb-4">Create New Post</legend>
       {% endif %}
+      <div class="form-group">
+        {{ form.title.label(class="form-control-label") }}
+        {% if form.title.errors %}
+          {% if post %}
+            {{ form.title(class="form-control form-control-lg is-invalid", value=post.title) }}
+          {% else %}
+            {{ form.title(class="form-control form-control-lg is-invalid") }}
+          {% endif %}
+          <div class="invalid-feedback">
+            {% for error in form.title.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {% if post %}
+            {{ form.title(class="form-control form-control-lg", value=post.title) }}
+          {% else %}
+            {{ form.title(class="form-control form-control-lg") }}
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.image_path.label(class="form-control-label") }}
+        {% if form.image_path.errors %}
+          {% if post %}
+            {{ form.image_path(class="form-control form-control-lg is-invalid", value=post.post_image) }}
+          {% else %}
+            {{ form.image_path(class="form-control form-control-lg is-invalid") }}
+          {% endif %}
+          <div class="invalid-feedback">
+            {% for error in form.image_path.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {% if post %}
+            {{ form.image_path(class="form-control form-control-lg", value=post.post_image) }}
+          {% else %}
+            {{ form.image_path(class="form-control form-control-lg") }}
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.description.label(class="form-control-label") }}
+        {% if form.description.errors %}
+          {% if post %}
+            {{ form.description(class="form-control form-control-lg is-invalid", placeholder=post.description) }}
+          {% else %}
+            {{ form.description(class="form-control form-control-lg is-invalid") }}
+          {% endif %}
+          <div class="invalid-feedback">
+            {% for error in form.description.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {% if post %}
+            {{ form.description(class="form-control form-control-lg", placeholder=post.description) }}
+          {% else %}
+            {{ form.description(class="form-control form-control-lg") }}
+          {% endif %}
+        {% endif %}
+      </div>
+    </fieldset>
+    <div class="form-group">
+      {% if post %}
+        {{ form.submit(class="btn btn-outline-info", value="Update Post") }}
+      {% else %}
+        {{ form.submit(class="btn btn-outline-info") }}
       {% endif %}
     </div>
-    <div class="form-group">
-      {{ form.image_path.label(class="form-control-label") }}
-      {% if form.image_path.errors %}
-        {% if post %}
-        {{ form.image_path(class="form-control form-control-lg is-invalid", value=post.post_image) }}
-        {% else %}
-        {{ form.image_path(class="form-control form-control-lg is-invalid") }}
-        {% endif %}
-        <div class="invalid-feedback">
-          {% for error in form.image_path.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
-        </div>
-      {% else %}
-      {% if post %}
-      {{ form.image_path(class="form-control form-control-lg", value=post.post_image) }}
-      {% else %}
-      {{ form.image_path(class="form-control form-control-lg") }}
-      {% endif %}
-      {% endif %}
-    </div>
-    <div class="form-group">
-      {{ form.description.label(class="form-control-label") }}
-      {% if form.description.errors %}
-        {% if post %}
-        {{ form.description(class="form-control form-control-lg is-invalid", placeholder=post.description) }}
-        {% else %}
-        {{ form.description(class="form-control form-control-lg is-invalid") }}
-        {% endif %}
-        <div class="invalid-feedback">
-          {% for error in form.description.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
-        </div>
-      {% else %}
-      {% if post %}
-      {{ form.description(class="form-control form-control-lg", placeholder=post.description) }}
-      {% else %}
-      {{ form.description(class="form-control form-control-lg") }}
-      {% endif %}
-      {% endif %}
-    </div>
-  </fieldset>
-  <div class="form-group">
-    {% if post %}
-      {{ form.submit(class="btn btn-outline-info", value="Update Post") }}
-    {% else %}
-      {{ form.submit(class="btn btn-outline-info") }}
-    {% endif %}
-  </div>
+  </form>
 {% endblock %}
