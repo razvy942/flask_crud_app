@@ -88,7 +88,7 @@
             <div class="img-description">
               {{ post.description }}
             </div>
-            <div class="poster">Posted by: 
+            <div class="poster text-muted">Posted by: 
               <a href="{{url_for('profile_view', username=post.author.username)}}">{{ post.author.username }}</a>
               <img class="avatar-image" height="30" alter="avatar-image" src="{{ post.author.profile_image }}"/>
             </div>

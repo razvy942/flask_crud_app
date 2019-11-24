@@ -27,7 +27,7 @@
           {% endif %}
         </button>
       </div>
-      <div class="user-likes">
+      <div class="user-likes text-muted">
         Liked by: 
         {% for i in post.liked_by %}
           <a href="{{ url_for('profile_view',username=i.username) }}"
@@ -39,7 +39,7 @@
     <div class="img-info" id="post-info">
       <h2 class="title">{{ post.title }}</h2>
       <p class="description">{{ post.description }}</p>
-      <p class="post-date">
+      <p class="post-date text-muted">
         Posted on {{ post.date_posted.date() }} by
         <span style="font-size: 1.0rem;"
           ><a href="{{ url_for('profile_view', username=post.author.username) }}"

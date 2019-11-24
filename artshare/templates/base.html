@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.ico') }}">
     <link
       rel="stylesheet"
       href="{{url_for('static', filename='css/home.css')}}"
@@ -41,7 +42,7 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="{{ url_for('index') }}">ArtShare</a>
         <button
           class="navbar-toggler"
@@ -67,7 +68,7 @@
                 <a class="nav-link {{signup_active}}" href="{{ url_for('register') }}">Sign Up</a>
               </li>
             {% endif %}
-            <li class="ml-sm-5">
+            <li class="ml-sm-5" id="navBarSearch">
               <form class="input-group" method="POST" action="{{ url_for('search') }}">
                 <input
                   id="search-input"

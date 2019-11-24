@@ -19,10 +19,12 @@
           {{ post.title }}
         </div>
         <div class="img-description">
-          {{ post.description }}
+          <span>{{ post.description }}</span>
         </div>
-        <span id="likes-count-{{post.id}}">{{ post.liked_by|length }}</span> likes
-        <div class="poster">Posted by: 
+        <small class="text-muted">
+          <span id="likes-count-{{post.id}}">{{ post.liked_by|length }}</span> likes
+        </small>
+        <div class="poster text-muted">Posted by: 
           <a href="{{url_for('profile_view', username=post.author.username)}}">{{ post.author.username }}</a>
           <img class="avatar-image" height="30" alter="avatar-image" src="{{ post.author.profile_image }}"/>
         </div>

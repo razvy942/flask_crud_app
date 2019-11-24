@@ -3,14 +3,10 @@ from artshare.forms import LoginForm, RegistrationForm, CreatePostForm
 from artshare import app, bcrypt, db
 from artshare.helpers import loggedout_required, login_required
 from artshare.models import User, Post
-import os
-
 
 
 @app.route('/')
 def index():
-    images = os.listdir(os.path.join(
-        app.static_folder, 'assets', 'images'))
     posts = Post.query.all()
     return render_template('index.html', posts=posts, index_active='active')
 

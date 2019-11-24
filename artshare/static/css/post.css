@@ -1,6 +1,6 @@
 .main-img {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   background: #f8f8f8;
   border-radius: 8px;
 }
@@ -11,10 +11,12 @@ img {
 
 .title {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .description {
   font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 
 .post-date {
