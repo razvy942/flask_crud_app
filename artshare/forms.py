@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, RadioField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from artshare.models import User
+
 
 
 class RegistrationForm(FlaskForm):
@@ -12,6 +13,7 @@ class RegistrationForm(FlaskForm):
                              DataRequired(), Length(min=5)], render_kw={'placeholder': 'Enter password of at least 5 characters'})
     confirm_password = PasswordField('Confirm Password', validators=[
                                      DataRequired(), EqualTo('password')])
+    choose_avatar = StringField('Avatar', render_kw={'placeholder': 'Enter url for custom avatar, othwerwise default is assigned'})
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):

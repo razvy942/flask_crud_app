@@ -19,7 +19,10 @@
         {{ post.description }}
       </div>
       <span id="likes-count-{{post.id}}">{{ post.liked_by|length }}</span> likes
-      <div class="poster">Posted by: <a href="{{url_for('profile_view', username=post.author.username)}}">{{ post.author.username }} user image</a></div>
+      <div class="poster">Posted by: 
+        <a href="{{url_for('profile_view', username=post.author.username)}}">{{ post.author.username }}</a>
+        <img class="avatar-image" height="30" alter="avatar-image" src="{{ post.author.profile_image }}"/>
+      </div>
       <div class="actions">
         <button class="btn btn-danger btn-block like" id="{{post.id}}">
           {% if user and user.username in post.liked_by|map(attribute='username') %}

@@ -15,7 +15,7 @@
       <img
         class="avatar-image"
         height="150"
-        src="./assets/images/profile-image-dummy.jpg"
+        src="{{ user_profile.profile_image }}"
         alt="user-avatar"
       />
     </div>
@@ -84,7 +84,10 @@
           <div class="img-description">
             {{ post.description }}
           </div>
-          <div class="poster">Posted by: {{ post.author.username }} {user image}</div>
+          <div class="poster">Posted by: 
+            <a href="{{url_for('profile_view', username=post.author.username)}}">{{ post.author.username }}</a>
+            <img class="avatar-image" height="30" alter="avatar-image" src="{{ post.author.profile_image }}"/>
+          </div>
           {% if user_profile.id == user.id %}
           <div class="actions">
             <button class="btn btn-danger btn-block profile-view-like" id="{{ post.id }}">

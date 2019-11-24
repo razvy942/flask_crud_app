@@ -53,6 +53,10 @@
       {%else%} {{form.confirm_password(class="form-control form-control-lg") }}
       {%endif%}
     </div>
+    <div class="form-group">
+      {{ form.choose_avatar.label(class="form-control-label") }}
+      {{ form.choose_avatar(class="form-control form-control-lg") }}
+    </div>
   </fieldset>
   <div class="form-group">
     {{ form.submit(class="btn btn-outline-info") }}

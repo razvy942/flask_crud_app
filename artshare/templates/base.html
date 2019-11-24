@@ -104,7 +104,7 @@
                     ><img
                       class="avatar-image"
                       height="30px"
-                      src="{{url_for('static', filename='assets/images/profile-image-dummy.jpg')}}"
+                      src="{{ user.profile_image }}"
                       alt="user-avatar"/></span
                 ></a>
               </li>
@@ -129,7 +129,7 @@
                 ><img
                   class="avatar-image"
                   height="30px"
-                  src="{{url_for('static', filename='assets/images/profile-image-dummy.jpg')}}"
+                  src="{{ user.profile_image }}"
                   alt="user-avatar"/></span
               >{{user.username}}
             </button>

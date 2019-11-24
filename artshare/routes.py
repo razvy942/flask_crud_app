@@ -25,7 +25,11 @@ def register():
         email = form.email.data
         username = form.username.data
         # creating new User
-        user = User(username=username, email=email, password=hashed_password)
+        avatar = form.choose_avatar.data
+        if avatar:
+            user = User(username=username, email=email, password=hashed_password, profile_image=avatar)
+        else:
+            user = User(username=username, email=email, password=hashed_password)
         # adding new user to database
         db.session.add(user)
         db.session.commit()

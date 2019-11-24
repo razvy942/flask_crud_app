@@ -5,6 +5,10 @@
   border-radius: 8px;
 }
 
+img {
+  max-height: 65vh;
+}
+
 .title {
   text-align: center;
 }

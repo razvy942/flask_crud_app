@@ -1,54 +1,46 @@
-{% extends 'base.html' %}
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/post.css') }}">
-{% endblock %}
-{% block body %}
-{% if post %}
+{% extends 'base.html' %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/post.css') }}"
+/>
+{% endblock %} {% block body %} {% if post %}
 <div class="main-img" id="post-img">
+  <img src="{{ post.post_image }}" alt="main-post-image" class="img-fluid" />
+  <div class="actions">
+    <button class="btn btn-danger like" id="{{ post.id }}">
+      {% if user and user.username in post.liked_by|map(attribute='username') %}
+      <i class="fas fa-heart-broken"></i>
+      Dislike {% else %}
+      <i class="fas fa-heart"></i>
+      Like {% endif %}
+    </button>
+  </div>
+  <div class="user-likes">
+    Liked by: {% for i in post.liked_by %}
+    <a href="{{ url_for('profile_view',username=i.username) }}"
+      >{{i.username}} <img class="avatar-image" height="30" alt="{{i.username}}" src="{{ i.profile_image }}"> 
+    </a>
+    {% endfor %}
+  </div>
+</div>
+<div class="img-info" id="post-info">
+  <h2 class="title">{{ post.title }}</h2>
+  <p class="description">{{ post.description }}</p>
+  <p class="post-date">
+    Posted on {{ post.date_posted.date() }} by
+    <span style="font-size: 1.0rem;"
+      ><a href="{{ url_for('profile_view', username=post.author.username) }}"
+        >{{ post.author.username }}</a
+      ></span
+    >
     <img
-      src="{{ post.post_image }}"
-      alt="main-post-image"
-      class="img-fluid"
+      class="avatar-image"
+      height="30"
+      src="{{ post.author.profile_image }}"
+      alt="user-avatar"
     />
-    <div class="actions">
-      <button class="btn btn-danger like" id="{{ post.id }}">
-        {% if user and user.username in post.liked_by|map(attribute='username') %}
-        <i class="fas fa-heart-broken"></i> 
-        Dislike
-        {% else %}
-        <i class="fas fa-heart"></i> 
-        Like
-        {% endif %}
-      </button>
-    </div>
-    <div class="user-likes">Liked by:
-      {% for i in post.liked_by %}
-      <a href="{{ url_for('profile_view',username=i.username) }}">{{i.username}}</a>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="img-info" id="post-info">
-    <h2 class="title">{{ post.title }}</h2>
-    <p class="description">{{ post.description }}</p>
-    <p class="post-date">
-      Posted on {{ post.date_posted.date() }} by
-      <span style="font-size: 1.0rem;"
-        ><a href="{{ url_for('profile_view', username=post.author.username) }}">{{ post.author.username }}</a></span
-      >
-      <img
-        class="avatar-image"
-        height="30"
-        src="{{ url_for('static', filename='assets/images/profile-image-dummy.jpg') }}"
-        alt="user-avatar"
-      />
-    </p>
-  </div>
+  </p>
+</div>
 {% else %}
 <h1>POST NOT FOUND</h1>
-{% endif %}
-
-{% endblock %}
-    
-
-  
-
+{% endif %} {% endblock %}

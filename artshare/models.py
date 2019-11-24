@@ -14,7 +14,7 @@ class User(db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     profile_image = db.Column(
-        db.String(20), nullable=False, default='default.jpg')
+        db.String(20), nullable=False, default='https://i.pinimg.com/564x/0e/2f/21/0e2f2170e65d2099788c8dbc9be94e0a.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author')
     # Liked posts is a many to many relationship, secondary argument is the association table

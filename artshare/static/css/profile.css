@@ -31,6 +31,7 @@
   overflow: scroll;
 }
 
+
 @media (max-width: 900px) {
   .user-info {
     flex-direction: column-reverse;
