@@ -10,11 +10,6 @@
 <div class="user-info">
     <div>
       <h2>{{ user_profile.username }}</h2>
-      <a class="follower" href="followers.html"> <b>0 followers</b> </a
-      ><b
-        ><i class="fas fa-circle"></i
-        ><a class="follower" href="followers.html">0 following</a>
-      </b>
     </div>
     <div>
       <img
@@ -48,10 +43,21 @@
                 <i class="fas fa-edit"></i> Edit
               </button>
             </a>
+            <form action="{{url_for('delete_post', post_id=post.id)}}" method="POST">
+              <button type="submit" class="btn btn-danger btn-block">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </form>
             {% else %}
             <div class="actions">
-              <button class="btn btn-danger btn-block">
-                <i class="fas fa-heart-broken"></i> Dislike
+              <button class="btn btn-danger btn-block like" id="{{ post.id }}">
+                  {% if user and user.username in post.liked_by|map(attribute='username') %}
+                  <i class="fas fa-heart-broken"></i> 
+                  Dislike
+                  {% else %}
+                  <i class="fas fa-heart"></i> 
+                  Like
+                  {% endif %}
               </button>
               <button class="btn btn-primary btn-block">
                 <i class="fas fa-plus"></i> Follow user
@@ -66,28 +72,30 @@
   <br />
   <p class="posts-section">Liked posts</p>
   <div class="posts liked-posts">
-    <div class="img-card-holder">
-      <a href="./post.html">
-        <img src="./assets/images/dummy-art-5.jpg" class="img-card" />
-      </a>
-      <div class="img-card-body">
-        <div class="img-title">
-          TITLE
-        </div>
-        <div class="img-description">
-          Image description
-        </div>
-        <div class="poster">Posted by: {User } {user image}</div>
-        <div class="actions">
-          <button class="btn btn-danger btn-block">
-            <i class="fas fa-heart-broken"></i> Dislike
-          </button>
-          <button class="btn btn-primary btn-block">
-            <i class="fas fa-plus"></i> Follow user
-          </button>
+    {% for post in user_profile.liked_posts %}
+    <div class="img-card-holder" id="img-card-{{post.id}}">
+        <a href="{{ url_for('post_view', username=post.author.username, post_id=post.id) }}">
+          <img src="{{ post.post_image }}" class="img-card" />
+        </a>
+        <div class="img-card-body">
+          <div class="img-title">
+            {{ post.title }}
+          </div>
+          <div class="img-description">
+            {{ post.description }}
+          </div>
+          <div class="poster">Posted by: {{ post.author.username }} {user image}</div>
+          {% if user_profile.id == user.id %}
+          <div class="actions">
+            <button class="btn btn-danger btn-block profile-view-like" id="{{ post.id }}">
+              <i class="fas fa-heart-broken"></i> Dislike
+            </button>
+          </div>
+          {% endif %}
         </div>
       </div>
-    </div>
+    {% endfor %}
+   
   </div>
 {% else %}
 <h1>Profile does not exist</h1>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block head %}
 <title>Search results</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/followers.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
 {% endblock %}
 {% block body %}
 {% if users %}
@@ -14,7 +14,6 @@
           <ul>
             <li class="user-detail">{{ user.username }}</li>
             <li class="user-detail">{{ user.posts|length }} posts</li>
-            <li class="user-detail">100 followers 100 following</li>
           </ul>
         </div>
         <div class="user-avatar">

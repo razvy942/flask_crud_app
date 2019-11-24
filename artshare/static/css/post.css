@@ -21,3 +21,8 @@
 .actions {
   padding: 20px;
 }
+
+.user-likes {
+  text-align: left;
+  margin: 10px;
+}

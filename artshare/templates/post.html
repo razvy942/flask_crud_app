@@ -11,12 +11,20 @@
       class="img-fluid"
     />
     <div class="actions">
-      <button class="btn btn-danger">
-        <i class="fas fa-heart"></i> Like
+      <button class="btn btn-danger like" id="{{ post.id }}">
+        {% if user and user.username in post.liked_by|map(attribute='username') %}
+        <i class="fas fa-heart-broken"></i> 
+        Dislike
+        {% else %}
+        <i class="fas fa-heart"></i> 
+        Like
+        {% endif %}
       </button>
-      <button class="btn btn-primary">
-        <i class="fas fa-plus"></i> Follow user
-      </button>
+    </div>
+    <div class="user-likes">Liked by:
+      {% for i in post.liked_by %}
+      <a href="{{ url_for('profile_view',username=i.username) }}">{{i.username}}</a>
+      {% endfor %}
     </div>
   </div>
   <div class="img-info" id="post-info">

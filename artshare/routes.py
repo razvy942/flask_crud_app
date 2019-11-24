@@ -1,4 +1,4 @@
-from flask import render_template, url_for, request, flash, redirect, session
+from flask import render_template, url_for, request, flash, redirect, session, jsonify
 from artshare.forms import LoginForm, RegistrationForm, CreatePostForm
 from artshare import app, bcrypt, db
 from artshare.helpers import loggedout_required, login_required
@@ -12,7 +12,7 @@ def index():
     images = os.listdir(os.path.join(
         app.static_folder, 'assets', 'images'))
     posts = Post.query.all()
-    return render_template('index.html', posts=posts)
+    return render_template('index.html', posts=posts, index_active='active')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -32,7 +32,7 @@ def register():
         # Flash message to show the user that an account was succesfully built
         flash(f'Account created for {form.email.data}!', 'success')
         return redirect(url_for('index'))
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, signup_active='active')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -49,7 +49,7 @@ def login():
         flash(f'Welcome back {form.email.data}', 'success')
         session['user'] = user.id
         return redirect(url_for('index'))
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, login_active='active')
 
 
 @app.route('/logout', methods=['POST'])
@@ -68,13 +68,33 @@ def create_post():
         post = Post(title=form.title.data, post_image=form.image_path.data, description=form.description.data, author=author)
         db.session.add(post)
         db.session.commit()
-    return render_template('create-post.html', form=form)
+        flash(f'Post {post.title} created!', 'success')
+        return redirect(url_for('index'))
+    return render_template('create-post.html', form=form, create_post_active='active')
 
+@app.route('/delete/<post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.filter_by(id=post_id)
+    author = post.first().author
+    user_id = session.get('user', 0)
+    if author.id == user_id:
+        post.delete()
+        db.session.commit()
+        flash(f'Post deleted succesfully!', 'success')
+    else:
+        flash('Error while deleting post', 'danger')
+    return redirect(url_for('profile_view', username=author.username))
 
 @app.route('/profile/<username>')
 def profile_view(username):
     user = User.query.filter_by(username=username).first()
-    return render_template('profile.html', user_profile=user)
+    # Link in navbar should only be active if the profile viewed is that owned by the user
+    if user and session.get('user', 0) == user.id:
+        profile_view_active = 'active'
+    else:
+        profile_view_active = ''
+    return render_template('profile.html', user_profile=user, profile_view_active=profile_view_active)
 
 
 @app.route('/profile/<username>/followers')
@@ -101,6 +121,24 @@ def search_users(username):
     users = User.query.filter(User.username.like(f'{username}%')).all()
     return render_template('search.html', users=users)
 
+
+@app.route('/like/<post_id>', methods=['POST'])
+@login_required
+def like_post(post_id):
+    if 'user' not in session:
+        return jsonify(is_authenticated=False)
+    post = Post.query.filter_by(id=post_id).first()
+    user = User.query.filter_by(id=session.get('user')).first()
+    liked = False
+    if user not in post.liked_by:
+        post.liked_by.append(user)
+        db.session.commit()
+        liked = True
+    else:
+        post.liked_by.remove(user)
+        db.session.commit()
+    return jsonify(liked=liked, is_authenticated=True)
+    
 
 @app.route('/<path:path>')
 def not_found(path):

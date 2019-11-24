@@ -55,11 +55,15 @@ i {
 
 .poster {
   text-align: end;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
 .actions button {
   margin-top: 5px;
+}
+
+button:active {
+  transform: scale(0.9);
 }
 
 @media (min-width: 1400px) {
