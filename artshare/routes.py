@@ -17,15 +17,18 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         # hash password before storing into database
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
         email = form.email.data
         username = form.username.data
         # creating new User
         avatar = form.choose_avatar.data
         if avatar:
-            user = User(username=username, email=email, password=hashed_password, profile_image=avatar)
+            user = User(username=username, email=email,
+                        password=hashed_password, profile_image=avatar)
         else:
-            user = User(username=username, email=email, password=hashed_password)
+            user = User(username=username, email=email,
+                        password=hashed_password)
         # adding new user to database
         db.session.add(user)
         db.session.commit()
@@ -40,7 +43,8 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = db.session.query(User).filter(User.email == form.email.data).first()
+        user = db.session.query(User).filter(
+            User.email == form.email.data).first()
         # check if user exists in database and if password is correct
         if not user or not bcrypt.check_password_hash(user.password, form.password.data):
             flash('Incorrect email or password', 'danger')
@@ -64,13 +68,15 @@ def logout():
 def create_post():
     form = CreatePostForm()
     if form.validate_on_submit():
-        author = User.query.filter_by(id = session.get('user', 0)).first()
-        post = Post(title=form.title.data, post_image=form.image_path.data, description=form.description.data, author=author)
+        author = User.query.filter_by(id=session.get('user', 0)).first()
+        post = Post(title=form.title.data, post_image=form.image_path.data,
+                    description=form.description.data, author=author)
         db.session.add(post)
         db.session.commit()
         flash(f'Post {post.title} created!', 'success')
         return redirect(url_for('index'))
     return render_template('create-post.html', form=form, create_post_active='active')
+
 
 @app.route('/edit-post/<post_id>', methods=['GET', 'POST'])
 @login_required
@@ -94,6 +100,7 @@ def edit_post(post_id):
 
     return render_template('create-post.html', form=form, post=post)
 
+
 @app.route('/delete/<post_id>', methods=['POST'])
 @login_required
 def delete_post(post_id):
@@ -108,6 +115,7 @@ def delete_post(post_id):
         flash('Error while deleting post', 'danger')
     return redirect(url_for('profile_view', username=author.username))
 
+
 @app.route('/profile/<username>')
 def profile_view(username):
     user = User.query.filter_by(username=username).first()
@@ -118,6 +126,7 @@ def profile_view(username):
         profile_view_active = ''
     return render_template('profile.html', user_profile=user, profile_view_active=profile_view_active)
 
+
 @app.route('/<username>/<post_id>')
 def post_view(username, post_id):
     # check if valid user and valid post
@@ -125,13 +134,15 @@ def post_view(username, post_id):
     post = Post.query.filter_by(id=post_id).first()
     if (user and post) and post.author.id == user.id:
         return render_template('post.html', post=post)
-    
+
     return render_template('post.html', post=None)
+
 
 @app.route('/search', methods=['POST'])
 def search():
     username = request.form.get('search-users')
     return redirect(url_for('search_users', username=username))
+
 
 @app.route('/search/<username>')
 def search_users(username):
@@ -155,7 +166,7 @@ def like_post(post_id):
         post.liked_by.remove(user)
         db.session.commit()
     return jsonify(liked=liked, is_authenticated=True)
-    
+
 
 @app.route('/<path:path>')
 def not_found(path):
@@ -165,5 +176,5 @@ def not_found(path):
 @app.context_processor
 def context_processor():
     is_logged_in = 'user' in session
-    user = User.query.filter_by(id = session.get('user', 0)).first()
+    user = User.query.filter_by(id=session.get('user', 0)).first()
     return dict(is_logged_in=is_logged_in, user=user)
